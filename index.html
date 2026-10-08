@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Номерок</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#09070d;color:#f8f3ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+
+.promo-head{font-size:12px;line-height:1.18;max-width:250px;margin:5px auto 0;text-align:center}
+.promo-head b{color:#b44cff;font-weight:900}
+.drop-rates{margin-top:9px;padding:10px;border:1px solid #4d2b59;border-radius:16px;background:#140d1a}
+.rates-title{font-size:15px;font-weight:800;margin-bottom:8px}
+.rates-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.rates-grid div{min-width:0;padding:8px 5px;border:1px solid #4d3a5b;border-radius:11px;background:#0e0a13;text-align:center}
+.rates-grid span{display:block;color:#aaa0b8;font-size:10px;white-space:nowrap}
+.rates-grid b{display:block;margin-top:3px;font-size:15px;color:#ff8a1f}
+.rates-grid div:nth-child(2) b{color:#4da3ff}
+.rates-grid div:nth-child(3) b{color:#b44cff}
+.rates-grid div:nth-child(4) b{color:#ffb126}
+
+.halloween-deco{text-align:center;color:#ff7a18;letter-spacing:7px;font-size:15px;margin-bottom:7px;animation:floatPumpkin 2.8s ease-in-out infinite}.wrap{max-width:520px;margin:auto;padding:8px 9px 18px}
+.top{position:relative;display:flex;align-items:center;justify-content:center;min-height:86px;margin-bottom:14px}
+.logo{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;text-align:center}.mark{width:38px;height:38px;border:1px solid #374052;border-radius:20px;display:grid;place-items:center;font-size:16px;background:#11151e}.title{font-size:23px;font-weight:800;line-height:1}.sub{color:#aaa0b8;margin-top:7px;font-size:16px}
+.balance{min-width:84px;padding:6px 8px;border:1px solid #4d2b59;border-radius:20px;background:#140d1a;text-align:right}.balance small{display:block;color:#9da4b5;font-size:11px}.balance b{display:block;color:#ff8a1f;font-size:15px;margin-top:3px}
+.card{position:relative;overflow:hidden;border:1px solid #4d2b59;border-radius:24px;padding:13px;background:radial-gradient(circle at 50% 45%,#1b202b 0,#11151e 58%,#0d1017 100%);box-shadow:0 18px 50px #0008}
+.card.rare{animation:rare .8s ease 2}.gold{position:absolute;right:15px;top:18px;width:50px;height:33px;border-radius:14px;background:linear-gradient(145deg,#ffb12b,#d34a13);box-shadow:0 0 28px #ff6a1f66}
+.card h2{margin:0;font-size:16px}.meta{color:#9da4b5;font-size:11px;margin-top:3px}.phone{display:flex;align-items:center;justify-content:center;margin:42px 0 34px}.number-display{font-size:clamp(29px,7vw,42px);font-weight:900;letter-spacing:1px;white-space:nowrap;color:#f8f3ff;text-shadow:0 0 18px #ff7a1833}.number-spinning{filter:blur(1.2px);transform:scaleY(.98);color:#ff9b38}
+
+
+
+}70%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+@keyframes rare{50%{box-shadow:0 0 65px #ffd34d99;border-color:#f4c84e}}
+.info{border-top:1px solid #303746;padding-top:9px;display:flex;justify-content:space-between;align-items:end;gap:12px}.ready{font-size:16px;font-weight:750}.price{color:#ff8a1f;font-size:15px;font-weight:800}.score{padding:6px 8px;border:1px solid #6c5420;border-radius:22px;color:#f4c84e}
+button{border:0;color:#fff;font:inherit;font-weight:750;cursor:pointer}.spinbtn{width:100%;margin-top:8px;padding:12px 16px;border-radius:16px;background:linear-gradient(100deg,#ffad28,#e45a16);color:#1b0d05;box-shadow:0 8px 25px #ff6a1f33;font-size:16px}
+.spinbtn{background:linear-gradient(135deg,#ffb52e,#ff7a18,#e44a12);box-shadow:0 8px 22px #ff6a1f3d,inset 0 1px 0 #fff8;position:relative;overflow:hidden}
+.spinbtn:before{content:"";position:absolute;top:-80%;left:-35%;width:28%;height:260%;background:#fff9;transform:rotate(24deg);animation:buttonShine 2.8s linear infinite}
+@keyframes buttonShine{0%{left:-35%}55%,100%{left:125%}}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.secondary{padding:9px;border-radius:16px;background:#160e1d;border:1px solid #4d2b59;font-size:16px}.secondary:disabled,.spinbtn:disabled{opacity:.55}.auto{margin-top:8px;padding:9px 11px;border:1px solid #4d2b59;border-radius:24px;background:#140d1a;display:flex;justify-content:space-between;align-items:center;font-size:15px}.toggle{padding:10px 20px;border-radius:18px;background:#322039}.toggle.on{background:#e76518;color:#1b0d05}.collection{margin-top:9px}
+
+.actions{margin-top:12px}
+.actions .spinbtn{margin-top:0}
+.promo{margin-top:9px;padding:12px;border:1px solid #4d2b59;border-radius:18px;background:#11151e}
+.promo-title{font-size:15px;font-weight:750;margin-bottom:8px}
+.promo-row{display:flex;gap:7px}
+.promo-input{min-width:0;flex:1;padding:9px 10px;border-radius:13px;border:1px solid #4d2b59;background:#090c12;color:#fff;font:inherit;outline:none}
+.promo-input:focus{border-color:#b88620}
+.promo-btn{padding:11px 14px;border:0;border-radius:13px;background:#e76518;color:#1b0d05;font-weight:800;font:inherit}
+.promo-msg{font-size:12px;margin-top:6px;min-height:15px;color:#9da4b5}
+.collection h3{font-size:16px}.item{display:flex;justify-content:space-between;gap:8px;padding:9px 10px;border:1px solid #2c3341;background:#140d1a;border-radius:18px;margin-top:8px}.muted{color:#929aaa;font-size:14px}
+
+/* Дополнительные анимации */
+.card{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 22px 55px #000b}
+.spinbtn{position:relative;overflow:hidden;transition:transform .12s ease,filter .2s ease}
+.spinbtn:active{transform:scale(.97)}
+.spinbtn:before{content:"";position:absolute;top:-80%;left:-45%;width:35%;height:260%;background:#fff8;transform:rotate(25deg);animation:shine 3.2s linear infinite}
+@keyframes floatPumpkin{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes shine{0%{left:-50%}55%,100%{left:125%}}
+.secondary,.toggle,.promo-btn{transition:transform .15s ease,background .2s ease,border-color .2s ease}
+.secondary:active,.toggle:active,.promo-btn:active{transform:scale(.96)}
+.balance{animation:balanceIn .55s ease}
+@keyframes balanceIn{0%{transform:scale(.9);opacity:.3}70%{transform:scale(1.04)}100%{transform:scale(1);opacity:1}}
+.promo{transition:transform .25s ease,border-color .25s ease}
+.promo:focus-within{border-color:#8d6b24;transform:translateY(-1px)}
+.item{animation:itemIn .35s ease both}
+@keyframes itemIn{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:translateY(0)}}
+.flash{position:fixed;inset:0;pointer-events:none;opacity:0;background:radial-gradient(circle,#ff7a1855,transparent 55%);z-index:10}.flash.show{animation:flash .9s ease}.rareLabel{position:fixed;left:50%;top:24%;transform:translate(-50%,-50%) scale(.5);opacity:0;z-index:11;background:#f4c84e;color:#17120a;font-weight:900;padding:13px 22px;border-radius:18px;font-size:16px;box-shadow:0 0 50px #f4c84eaa;white-space:nowrap}.rareLabel.show{animation:label .9s ease}
+@keyframes flash{0%{opacity:0}35%{opacity:1}100%{opacity:0}}@keyframes label{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
+@media(max-width:560px){.wrap{padding:8px 7px 14px}.top{min-height:82px}.promo-head{max-width:220px}.title{font-size:24px}.balance{min-width:102px}.digits{gap:4px;margin:34px -1px 21px}.card{padding:12px 10px}.gold{right:20px;top:30px;width:75px;height:54px}.info{align-items:center}.ready{font-size:16px}.score{font-size:14px}.spinbtn{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="halloween-deco">🎃 ✦ 👻 ✦ 🎃</div><header class="top">
+  <div class="logo"><div><div class="title">Номерок 🎃</div><div class="sub promo-head">Крути, выкладывай в тик ток с <b>#nomerokspin</b><br>и получай промокоды</div></div></div>
+  <div class="balance"><small>БАЛАНС</small><b id="balance">10 000 ₽</b></div>
+</header>
+
+<section class="card" id="card">
+  <div class="gold"></div>
+  <h2>🎃 НОМЕРОК</h2><div class="meta">🇷🇺 Россия · 11 цифр</div>
+  <div class="phone"><div class="number-display" id="numberDisplay">+7 000 000 00 00</div></div>
+  <div class="info"><div><div class="ready" id="rarity">Готов крутить</div><div class="price" id="price">—</div></div><div class="score" id="score">Красота: —</div></div>
+</section>
+
+<button class="spinbtn" id="spin">🎰 Крутить · 1 000 ₽</button>
+<div class="row"><button class="secondary" id="sell">💸 Продать</button><button class="secondary" id="save">♡ Сохранить</button></div>
+<div class="auto"><span>⚡ Автокрутка</span><button class="toggle" id="auto">ВЫКЛ</button></div>
+
+
+<section class="promo">
+  <div class="promo-title">🕸️ Промокод</div>
+  <div class="promo-row">
+    <input id="promoInput" class="promo-input" placeholder="Введи промокод" maxlength="24" autocomplete="off">
+    <button id="promoBtn" class="promo-btn">Получить</button>
+  </div>
+  <div id="promoMsg" class="promo-msg"></div>
+</section>
+
+<section class="drop-rates">
+  <div class="rates-title">📊 Шансы на выпадение</div>
+  <div class="rates-grid">
+    <div><span>Обычный</span><b>70%</b></div>
+    <div><span>Редкий</span><b>20%</b></div>
+    <div><span>Эпический</span><b>8%</b></div>
+    <div><span>Легендарный</span><b>2%</b></div>
+  </div>
+</section>
+<section class="collection"><h3>Моя коллекция</h3><div id="list"><div class="muted">Пока пусто.</div></div></section>
+</div>
+<div class="flash" id="flash"></div><div class="rareLabel" id="rareLabel">✨ РЕДКИЙ НОМЕР!</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const numberDisplay=document.getElementById("numberDisplay");
+let current=null,busy=false,auto=false,timer=null;
+const money=n=>Number(n).toLocaleString("ru-RU")+" ₽";
+let balance=Number(localStorage.getItem("nomerok_balance")||10000);
+let collection=JSON.parse(localStorage.getItem("nomerok_collection")||"[]");
+$("balance").textContent=money(balance);
+
+function makeNumber(){
+  let s="";
+  s="79"; for(let i=0;i<9;i++)s+=Math.floor(Math.random()*10);
+  return s;
+}
+function score(n){
+  let s=50;
+  if(/^(\d)\1+$/.test(n))s+=48;
+  if(/(\d)\1{2,}/.test(n))s+=22;
+  if(/(0123|1234|2345|3456|4567|5678|6789)/.test(n))s+=18;
+  if(/(9876|8765|7654|6543|5432|4321|3210)/.test(n))s+=18;
+  if(n.slice(-4)==="0000"||n.slice(-4)==="1111"||n.slice(-4)==="7777")s+=20;
+  return Math.min(100,s);
+}
+function rarity(s){return s>=95?"Легендарный":s>=85?"Очень редкий":s>=70?"Редкий":s>=55?"Красивый":"Обычный"}
+function price(s){
+  if(s>=95) return Math.round(1000000 + Math.random()*99000000);
+  if(s>=85) return Math.round(100000 + Math.random()*900000);
+  if(s>=70) return Math.round(10000 + Math.random()*90000);
+  if(s>=55) return Math.round(1000 + Math.random()*9000);
+  return Math.round(100 + Math.random()*900);
+}
+function startAnim(){
+  numberDisplay.classList.add("number-spinning");
+  return setInterval(()=>{
+    let x="+7 ";
+    for(let i=0;i<10;i++) x+=Math.floor(Math.random()*10);
+    numberDisplay.textContent=x;
+  },65);
+}
+function finish(n){
+  numberDisplay.classList.remove("number-spinning");
+  const d=String(n).replace(/\D/g,"").slice(-10).padStart(10,"0");
+  numberDisplay.textContent="+7 "+d;
+  numberDisplay.animate(
+    [{transform:"scale(.92)",opacity:.35},{transform:"scale(1.05)",opacity:1},{transform:"scale(1)"}],
+    {duration:420,easing:"ease-out"}
+  );
+}
+function rareFx(){ $("card").classList.remove("rare");void $("card").offsetWidth;$("card").classList.add("rare");$("flash").classList.add("show");$("rareLabel").classList.add("show");setTimeout(()=>{$("flash").classList.remove("show");$("rareLabel").classList.remove("show")},950)}
+function spin(){
+  if(busy)return;
+  $("card").animate([{transform:"scale(1)"},{transform:"scale(.985)"},{transform:"scale(1)"}],{duration:260,easing:"ease-out"});
+  if(balance<1000){
+    alert("Недостаточно баланса. Нужно 1 000 ₽.");
+    return;
+  }
+  balance-=1000;
+  localStorage.setItem("nomerok_balance",balance);
+  $("balance").textContent=money(balance);
+  busy=true;$("spin").disabled=true;
+  const interval=startAnim();
+  setTimeout(()=>{
+    clearInterval(interval);
+    const n=makeNumber(),s=score(n),r=rarity(s),p=price(s);
+    current={number:n,score:s,rarity:r,price:p};
+    finish(n);$("rarity").textContent=r;$("price").textContent=money(p);$("score").textContent="Красота: "+s+"/100";
+    if(s>=72)setTimeout(rareFx,850);
+    setTimeout(()=>{busy=false;$("spin").disabled=false},1150);
+  },1150);
+}
+function render(){
+  $("balance").textContent=money(balance);
+  $("list").innerHTML=collection.length?collection.slice().reverse().map(n=>`<div class="item"><span><b>${n.number}</b><br><small class="muted">${n.rarity} · ${n.score}/100</small></span><b>${money(n.price)}</b></div>`).join(""):'<div class="muted">Пока пусто.</div>';
+}
+$("spin").onclick=spin;
+$("save").onclick=()=>{
+  if(!current)return;
+  if(!collection.some(x=>x.number===current.number)){
+    collection.push(current);
+    localStorage.setItem("nomerok_collection",JSON.stringify(collection));
+    render();
+    $("save").animate([{transform:"scale(1)"},{transform:"scale(1.08)"},{transform:"scale(1)"}],{duration:320});
+  }
+};
+$("sell").onclick=()=>{
+  if(!current)return;
+  balance+=current.price;localStorage.setItem("nomerok_balance",balance);current=null;render();spin();
+};
+$("auto").onclick=()=>{
+  auto=!auto;$("auto").textContent=auto?"ВКЛ":"ВЫКЛ";$("auto").classList.toggle("on",auto);
+  if(auto){spin();timer=setInterval(()=>{if(!busy)spin()},3000)}else clearInterval(timer);
+};
+
+const PROMO_CODE="HALLOWEEN50K";
+const PROMO_REWARD=50000;
+const PROMO_LIMIT=1000;
+let promoUses=Number(localStorage.getItem("nomerok_promo_uses")||0);
+let promoUsed=localStorage.getItem("nomerok_promo_used")==="1";
+
+$("promoBtn").onclick=()=>{
+  const input=$("promoInput");
+  const code=input.value.trim().toUpperCase();
+  $("promoMsg").textContent="";
+  if(!code){$("promoMsg").textContent="Введи промокод.";return}
+  if(code!==PROMO_CODE){$("promoMsg").textContent="Такого промокода нет.";return}
+  if(promoUsed){$("promoMsg").textContent="Ты уже использовал этот промокод.";return}
+  if(promoUses>=PROMO_LIMIT){$("promoMsg").textContent="Лимит промокода исчерпан.";return}
+  balance+=PROMO_REWARD;
+  promoUses++;
+  promoUsed=true;
+  localStorage.setItem("nomerok_balance",balance);
+  localStorage.setItem("nomerok_promo_uses",promoUses);
+  localStorage.setItem("nomerok_promo_used","1");
+  $("balance").textContent=money(balance);
+  $("promoMsg").textContent="🎃 +50 000 ₽! Промокод активирован.";
+  input.value="";
+};
+
+render();
+</script>
+</body>
+</html>
