@@ -1,0 +1,53 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Номерок</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#07090d;color:#f7f8fb;font-family:Arial,sans-serif}
+.wrap{max-width:760px;margin:auto;padding:18px 15px 45px}
+.head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.brand{display:flex;gap:10px;align-items:center}.mark{width:44px;height:44px;border:1px solid #3a4352;border-radius:14px;display:grid;place-items:center;background:#121722;font-size:22px}
+h1{margin:0;font-size:28px}.sub{color:#8d96a6;font-size:12px;margin-top:2px}
+.bal{background:#11151d;border:1px solid #29313e;border-radius:17px;padding:9px 13px;text-align:right}.bal span{display:block;color:#8d96a6;font-size:10px}.bal b{color:#f0c85a}
+.card{position:relative;background:linear-gradient(145deg,#151b25,#0c1017);border:1px solid #2b3442;border-radius:28px;padding:17px;overflow:hidden;box-shadow:0 20px 55px #0009}
+.card:before{content:"";position:absolute;inset:-80px;background:radial-gradient(circle at 50% 50%,#f0c85a12,transparent 42%);pointer-events:none}
+.top{display:flex;justify-content:space-between;align-items:center;position:relative}.top b{letter-spacing:1px}.country{color:#8d96a6;font-size:12px;margin-top:4px}.chip{width:52px;height:35px;border-radius:9px;background:linear-gradient(135deg,#e5c45e,#8b6621);border:1px solid #a47e2d}
+.stage{min-height:225px;display:flex;align-items:center;justify-content:center;position:relative}
+.num{display:flex;gap:4px;perspective:600px}
+.digit{width:clamp(23px,7vw,47px);height:clamp(55px,12vw,76px);border:1px solid #313a49;border-radius:10px;background:linear-gradient(#1c2430,#0b0f15);display:grid;place-items:center;font-size:clamp(24px,6.8vw,42px);font-weight:900;box-shadow:inset 0 -12px 18px #0008,0 5px 16px #0007;overflow:hidden}
+.digit.spin{animation:dspin .11s linear infinite}.digit.stop{animation:dstop .34s cubic-bezier(.2,.8,.2,1)}
+@keyframes dspin{0%{transform:translateY(-12px) rotateX(-35deg);opacity:.55}50%{transform:translateY(11px) rotateX(35deg);opacity:1}100%{transform:translateY(-12px) rotateX(-35deg);opacity:.55}}
+@keyframes dstop{0%{transform:translateY(-15px) scale(1.08);opacity:.4}70%{transform:translateY(3px) scale(1.02);opacity:1}100%{transform:none}}
+.bottom{display:flex;justify-content:space-between;align-items:end;border-top:1px solid #27303b;padding-top:13px}.bottom b{font-size:18px}.muted{color:#8d96a6}.badge{padding:8px 11px;border-radius:999px;background:#241f13;border:1px solid #5d4b27;color:#f3d477;font-weight:800;font-size:12px}
+.buttons{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:9px;margin-top:10px}button{min-height:52px;border:1px solid transparent;border-radius:16px;font-weight:900;font-size:15px;cursor:pointer}.primary{background:linear-gradient(135deg,#f4d56e,#b88627);color:#171207}.dark{background:#151a23;color:#fff;border-color:#293342}
+.auto{margin-top:10px;background:#10141b;border:1px solid #252d39;border-radius:17px;padding:12px 14px;display:flex;justify-content:space-between}.auto button{min-height:39px;padding:0 15px}.on{background:#d9b650!important;color:#171207!important}
+.rare .digit{border-color:#d4ad4d;box-shadow:0 0 25px #e0b63b55,inset 0 -12px 18px #0008}
+.flash{position:absolute;inset:0;opacity:0;pointer-events:none}.flash.show{animation:flash 1.5s ease-out}
+@keyframes flash{0%{opacity:0;background:radial-gradient(circle,#fff8b966,transparent 12%)}20%{opacity:1}100%{opacity:0;background:radial-gradient(circle,#f0c85a22,transparent 60%)}}
+.rare-label{position:absolute;z-index:3;top:15px;left:50%;transform:translateX(-50%);opacity:0;background:#f0ca5d;color:#181207;padding:7px 13px;border-radius:999px;font-size:11px;font-weight:1000;white-space:nowrap}.rare-label.show{animation:label 1.6s ease-out}
+@keyframes label{0%{opacity:0;transform:translate(-50%,10px) scale(.8)}18%,70%{opacity:1;transform:translate(-50%,0) scale(1)}100%{opacity:0;transform:translate(-50%,-8px) scale(1.05)}}
+.collection{margin-top:22px}.item{background:#11151c;border:1px solid #252d39;padding:12px 13px;border-radius:15px;display:flex;justify-content:space-between;margin-top:8px}.item b{letter-spacing:1px}
+@media(max-width:560px){.head{align-items:flex-start}.buttons{grid-template-columns:1fr 1fr}.primary{grid-column:1/-1}.card{padding:15px}.stage{min-height:205px}.num{gap:3px}.digit{border-radius:8px}}
+</style></head><body><div class="wrap">
+<div class="head"><div class="brand"><div class="mark">№</div><div><h1>Номерок</h1><div class="sub">Найди комбинацию, которую хочется оставить</div></div></div>
+<div class="bal"><span>БАЛАНС</span><b id="balance">100 000 ₽</b></div></div>
+<div class="card" id="card"><div class="flash" id="flash"></div><div class="rare-label" id="rareLabel">✦ РЕДКИЙ НОМЕР ✦</div>
+<div class="top"><div><b>НОМЕРОК</b><div class="country">🇷🇺 Россия · 11 цифр</div></div><div class="chip"></div></div>
+<div class="stage"><div class="num" id="number"><span class="digit">—</span><span class="digit">—</span><span class="digit">—</span><span class="digit">—</span><span class="digit">—</span><span class="digit">—</span><span class="digit">—</span><span class="digit">—</span><span class="digit">—</span><span class="digit">—</span><span class="digit">—</span></div></div>
+<div class="bottom"><div><b id="rarity">Готов крутить</b><br><span class="muted" id="price">—</span></div><span class="badge" id="score">Красота: —</span></div></div>
+<div class="buttons"><button class="primary" id="spin">🎰 Крутить</button><button class="dark" id="sell">💸 Продать</button><button class="dark" id="save">♡ Сохранить</button></div>
+<div class="auto"><span>⚡ Автокрутка</span><button class="dark" id="auto">ВЫКЛ</button></div>
+<p class="muted">Прокручено: <b id="count">0</b></p><h2>Моя коллекция</h2><div id="list"><div class="muted">Пока пусто.</div></div></div>
+<script>
+const tg=window.Telegram?.WebApp;tg?.ready();tg?.expand();const uid=tg?.initDataUnsafe?.user?.id||0;
+let cur=null,busy=false,auto=false,timer=null,count=0;
+const $=x=>document.getElementById(x),fmt=n=>Number(n).toLocaleString("ru-RU")+" ₽",digits=[...document.querySelectorAll(".digit")];
+async function api(path,opts){let r=await fetch(path+(path.includes("?")?"&":"?")+"telegram_id="+uid,opts);if(!r.ok)throw Error(await r.text());return r.json()}
+const isRare=r=>/легендар|мифичес|эпичес|очень редк|редк|gold|rare|legend/i.test(String(r||""));
+function start(){digits.forEach(x=>{x.classList.remove("stop");x.classList.add("spin")});return setInterval(()=>digits.forEach(x=>x.textContent=Math.floor(Math.random()*10)),65)}
+function finish(n){let d=String(n||"").replace(/\D/g,"").slice(-11).padStart(11,"0");digits.forEach(x=>x.classList.remove("spin"));d.split("").forEach((v,i)=>setTimeout(()=>{digits[i].textContent=v;digits[i].classList.remove("stop");void digits[i].offsetWidth;digits[i].classList.add("stop")},i*72))}
+function rareFx(){$("card").classList.remove("rare");void $("card").offsetWidth;$("card").classList.add("rare");$("flash").classList.remove("show");void $("flash").offsetWidth;$("flash").classList.add("show");$("rareLabel").classList.remove("show");void $("rareLabel").offsetWidth;$("rareLabel").classList.add("show");setTimeout(()=>$("card").classList.remove("rare"),1700)}
+async function spin(){if(busy)return;busy=true;$("spin").disabled=true;const fake=start();try{const x=await api("/api/spin");clearInterval(fake);finish(x.number);cur=x;$("rarity").textContent=x.rarity;$("price").textContent=fmt(x.price);$("score").textContent="Красота: "+x.score+"/100";count++;$("count").textContent=count;if(isRare(x.rarity))setTimeout(rareFx,850)}catch(e){clearInterval(fake);$("rarity").textContent="Ошибка соединения";$("price").textContent="Сервер пока недоступен"}setTimeout(()=>{busy=false;$("spin").disabled=false},900)}
+async function save(){if(!cur)return;await fetch("/api/save",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({telegram_id:uid,number:cur.number})});load()}
+async function sell(){if(!cur)return;let r=await fetch("/api/sell",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({telegram_id:uid,number:cur.number}));let x=await r.json();$("balance").textContent=fmt(x.balance);cur=null;spin()}
+async function load(){try{let x=await api("/api/profile");$("balance").textContent=fmt(x.balance);$("list").innerHTML=x.collection.length?x.collection.map(n=>`<div class="item"><span><b>${n.number}</b><br><small class="muted">${n.rarity} · ${n.score}/100</small></span><b>${fmt(n.price)}</b></div>`).join(""):'<div class="muted">Пока пусто.</div>'}catch(e){}}
+$("spin").onclick=spin;$("save").onclick=save;$("sell").onclick=sell;
+$("auto").onclick=()=>{auto=!auto;$("auto").textContent=auto?"ВКЛ":"ВЫКЛ";$("auto").classList.toggle("on",auto);if(auto){spin();timer=setInterval(()=>{if(!busy)spin()},3200)}else clearInterval(timer)};load();
+</script></body></html>
