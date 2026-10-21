@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>НОМЕРОК</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#070707;color:#f4f4f4;font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+.wrap{width:min(1120px,calc(100% - 34px));margin:auto;padding:25px 0 80px}
+header{height:55px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1d1d1d}
+.brand{font-size:23px;font-weight:950;letter-spacing:4px}.brand span{color:#f0c94b}
+nav{display:flex;gap:30px;color:#666;font-size:11px;font-weight:bold;letter-spacing:1.5px}
+nav .active{color:#fff}
+.money{background:#111;border:1px solid #262626;border-radius:10px;padding:10px 14px;color:#777;font-size:12px}.money b{color:#fff;margin-left:4px}
+.hero{text-align:center;padding-top:67px}
+.label{font-size:10px;letter-spacing:4px;color:#777;font-weight:bold}
+h1{font-size:clamp(48px,8vw,90px);line-height:.89;letter-spacing:-5px;margin:17px 0 15px;font-weight:950}
+h1 em{font-style:normal;color:#777}
+p{color:#6d6d6d;margin:0;font-size:15px}
+.card{width:min(700px,100%);margin:48px auto 20px;padding:21px;border-radius:23px;border:1px solid #353535;background:linear-gradient(145deg,#1c1c1c,#0d0d0d);box-shadow:0 35px 100px #000;transition:.35s}
+.card.legendary{border-color:#c89c25;background:linear-gradient(145deg,#29210c,#0c0b08)}
+.card.unusual{border-color:#75bdd8}.card.rare{border-color:#316bd5}.card.epic{border-color:#8549ba}.card.mythic{border-color:#76233e}
+.card.secret{border-color:transparent;background:linear-gradient(#111,#111) padding-box,linear-gradient(90deg,#ff4a4a,#ffd84a,#53ee78,#4db8ff,#a653ff,#ff4da6) border-box}
+.card-head{display:flex;justify-content:space-between;color:#777;font-size:10px;font-weight:bold;letter-spacing:2px;margin:2px 3px 18px}
+.plate{height:170px;background:#f0f0ed;border:7px solid #bcbcbc;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#171717;box-shadow:inset 0 0 0 2px #eee,0 15px 35px #0008;overflow:hidden}
+.plate-main{display:flex;align-items:center;justify-content:center;min-width:76%;font-weight:900}
+.letters{font-size:76px;width:85px}.digits{font-size:88px;letter-spacing:2px}.letters.right{width:105px}
+.region{height:100%;width:86px;border-left:3px solid #777;display:flex;align-items:center;justify-content:center;flex-direction:column;margin-left:4px}
+.region b{font-size:43px}.region small{font-size:12px;font-weight:bold;margin-top:4px}
+.card-bottom{display:flex;align-items:end;justify-content:space-between;padding:20px 6px 3px}
+.card-bottom small{display:block;color:#666;font-size:9px;letter-spacing:2px;margin-bottom:5px}.card-bottom strong{font-size:29px}
+.rarity-pill{border:1px solid #3c3c3c;border-radius:99px;padding:9px 13px;color:#aaa;font-size:9px;letter-spacing:1.5px}
+.spin{border:0;background:#f3f3f3;color:#080808;border-radius:13px;padding:16px 35px;font-size:13px;font-weight:950;letter-spacing:1px;cursor:pointer;min-width:270px;transition:.15s}
+.spin:hover{transform:translateY(-2px);box-shadow:0 10px 35px #fff2}.spin:disabled{opacity:.45}.spin span{color:#777;margin-left:10px}
+.tip{font-size:10px;color:#4e4e4e;margin-top:11px}
+.rarities{margin-top:100px}.section-title{display:flex;align-items:center;gap:15px;border-bottom:1px solid #202020;padding-bottom:13px}
+.section-title span{color:#555;font-size:10px}.section-title h2{font-size:13px;letter-spacing:3px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:14px}
+.r{background:#101010;border:1px solid #222;border-radius:13px;padding:14px 11px;min-height:95px}
+.r i{display:block;width:8px;height:8px;border-radius:50%;background:#999;margin-bottom:13px}.r b{display:block;font-size:11px}.r span{display:block;color:#666;font-size:9px;margin-top:5px}
+.legendary i{background:#dfb631;box-shadow:0 0 13px #dfb631}.unusual i{background:#82d2ed}.rare i{background:#3c7df0}.epic i{background:#a456dc}.mythic i{background:#8b294b}.secret i{background:linear-gradient(90deg,#f55,#ff5,#5f8,#5cf,#b6f,#f5a)}
+@media(max-width:800px){
+nav{display:none}.grid{grid-template-columns:repeat(2,1fr)}.plate{height:125px;border-width:5px}
+.letters{font-size:53px;width:60px}.digits{font-size:61px}.letters.right{width:72px}.region{width:65px}.region b{font-size:31px}
+.wrap{width:calc(100% - 22px)}h1{letter-spacing:-3px}.card{padding:14px}.hero{padding-top:45px}
+}
+
+.sell-btn{
+  width:100%;margin-top:10px;padding:15px 18px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);background:#171717;color:#777;
+  font-weight:800;letter-spacing:.08em;cursor:not-allowed;transition:.25s;
+}
+.sell-btn.ready{color:#fff;background:linear-gradient(135deg,#242424,#101010);
+  border-color:rgba(255,255,255,.25);cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.sell-btn.ready:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.45)}
+.plate-card.rolling{animation:platePulse .32s ease-in-out infinite alternate}
+@keyframes platePulse{from{transform:scale(1)}to{transform:scale(1.018)}}
+.plate-card.result{animation:resultPop .55s cubic-bezier(.2,.9,.2,1)}
+@keyframes resultPop{0%{transform:scale(.92);opacity:.6}60%{transform:scale(1.045)}100%{transform:scale(1);opacity:1}}
+.coin-pop{animation:coinPop .45s ease}
+@keyframes coinPop{0%{transform:scale(1)}45%{transform:scale(1.15)}100%{transform:scale(1)}}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="brand">НОМЕРОК<span>•</span></div>
+<nav><span class="active">КРУТКА</span><span>КОЛЛЕКЦИЯ</span><span>ТОП</span></nav>
+<div class="money">₽ <b id="balance">10 000</b></div>
+</header>
+<section class="hero">
+<div class="label">АВТОМОБИЛЬНЫЕ НОМЕРА</div>
+<h1>Какой номер<br><em>тебе выпадет?</em></h1>
+<p>Крути и собирай самые редкие комбинации.</p>
+<div id="card" class="card ordinary">
+<div class="card-head"><span id="rarity">ОБЫЧНЫЙ</span><span id="serial">#000001</span></div>
+<div class="plate">
+<div class="plate-main"><div class="letters" id="letters">А</div><div class="digits" id="digits">123</div><div class="letters right" id="letters2">АА</div></div>
+<div class="region"><b id="region">77</b><small>RUS</small></div>
+</div>
+<div class="card-bottom"><div><small>СТОИМОСТЬ</small><strong id="price">100 ₽</strong></div><div class="rarity-pill" id="pill">ОБЫЧНЫЙ</div></div>
+</div>
+<button id="spin" class="spin">КРУТИТЬ <span>1 000 ₽</span></button>
+<div class="tip">Буквы и цифры прокручиваются отдельно</div>
+</section>
+<section class="rarities">
+<div class="section-title"><span>01</span><h2>РЕДКОСТИ</h2></div>
+<div class="grid">
+<div class="r legendary"><i></i><b>Легендарный</b><span>Золотой</span></div>
+<div class="r ordinary"><i></i><b>Обычный</b><span>Серый</span></div>
+<div class="r unusual"><i></i><b>Необычный</b><span>Светло-голубой</span></div>
+<div class="r rare"><i></i><b>Редкий</b><span>Синий</span></div>
+<div class="r epic"><i></i><b>Эпик</b><span>Фиолетовый</span></div>
+<div class="r mythic"><i></i><b>Мифик</b><span>Бардовый</span></div>
+<div class="r secret"><i></i><b>Секретный</b><span>Радужный</span></div>
+</div>
+</section>
+</div>
+<script>
+const rarities=[
+{name:'ОБЫЧНЫЙ',cls:'ordinary',price:100},{name:'НЕОБЫЧНЫЙ',cls:'unusual',price:2500},
+{name:'РЕДКИЙ',cls:'rare',price:15000},{name:'ЭПИК',cls:'epic',price:75000},
+{name:'МИФИК',cls:'mythic',price:300000},{name:'ЛЕГЕНДАРНЫЙ',cls:'legendary',price:1500000},
+{name:'СЕКРЕТНЫЙ',cls:'secret',price:50000000}];
+const letters=['А','В','Е','К','М','Н','О','Р','С','Т','У','Х'],regions=['01','02','50','52','54','55','59','66','77','78','97','99'];
+let balance=10000,busy=false;
+const $=x=>document.getElementById(x),pick=a=>a[Math.floor(Math.random()*a.length)];
+function nums(){return String(Math.floor(Math.random()*1000)).padStart(3,'0')}
+function roll(el,fn,ms,count){return new Promise(ok=>{let n=0,t=setInterval(()=>{el.textContent=fn();if(++n>=count){clearInterval(t);ok()}},ms)})}
+async function spin(){
+if(busy||balance<1000)return;
+busy=true;balance-=1000;$('balance').textContent=balance.toLocaleString('ru-RU');$('spin').disabled=true;
+const target=pick(rarities),card=$('card');card.className='card';
+await Promise.all([
+roll($('letters'),()=>pick(letters),35,34),
+roll($('digits'),nums,32,43),
+roll($('letters2'),()=>pick(letters)+pick(letters),42,37),
+roll($('region'),()=>pick(regions),47,25)
+]);
+$('rarity').textContent=target.name;$('price').textContent=target.price.toLocaleString('ru-RU')+' ₽';
+$('pill').textContent=target.name;$('serial').textContent='#'+String(Math.floor(Math.random()*999999)).padStart(6,'0');
+card.className='card '+target.cls;busy=false;$('spin').disabled=false;
+}
+$('spin').onclick=spin;
+
+const sellBtn = document.getElementById('sellBtn');
+let currentPlateValue = 0;
+let currentPlateName = '';
+
+function enableSell(){
+  if(!sellBtn) return;
+  sellBtn.disabled = false;
+  sellBtn.classList.add('ready');
+  sellBtn.textContent = `ПРОДАТЬ ЗА ₽ ${currentPlateValue.toLocaleString('ru-RU')}`;
+}
+
+function disableSell(){
+  if(!sellBtn) return;
+  sellBtn.disabled = true;
+  sellBtn.classList.remove('ready');
+  sellBtn.textContent = 'ПРОДАТЬ НОМЕР';
+}
+
+if(sellBtn){
+  sellBtn.addEventListener('click', ()=>{
+    if(sellBtn.disabled || !currentPlateValue) return;
+    balance += currentPlateValue;
+    if(typeof updateBalance === 'function') updateBalance();
+    const card = document.querySelector('.plate-card');
+    if(card){
+      card.classList.remove('result');
+      card.classList.add('coin-pop');
+      setTimeout(()=>card.classList.remove('coin-pop'),450);
+    }
+    currentPlateValue = 0;
+    currentPlateName = '';
+    disableSell();
+  });
+}
+
+</script>
+</body>
+</html>
+<script>
+(() => {
+  const card = document.querySelector('.plate-card');
+  const sell = document.getElementById('sellBtn');
+  if(card){
+    const originalClass = card.className;
+    window.addEventListener('nomerok:rolling',()=>card.classList.add('rolling'));
+    window.addEventListener('nomerok:result',()=>{card.classList.remove('rolling');card.classList.add('result');});
+  }
+  // If the original page exposes a spin button, wrap it for animation state.
+  const spin = document.querySelector('.spin-btn');
+  if(spin){
+    spin.addEventListener('click',()=>{
+      if(sell){ sell.disabled=true; sell.classList.remove('ready'); sell.textContent='ПРОДАТЬ НОМЕР'; }
+      const c=document.querySelector('.plate-card');
+      if(c){c.classList.add('rolling');setTimeout(()=>c.classList.remove('rolling'),1900);}
+    });
+  }
+})();
+</script>
+
+<script>
+(() => {
+  const sell=document.getElementById('sellBtn');
+  if(!sell) return;
+  sell.addEventListener('click',()=>{
+    // Visual confirmation; the main sale handler above handles the balance.
+    sell.textContent='НОМЕР ПРОДАН ✓';
+    setTimeout(()=>{sell.disabled=true;sell.classList.remove('ready');sell.textContent='ПРОДАТЬ НОМЕР';},900);
+  }, {once:false});
+})();
+</script>
